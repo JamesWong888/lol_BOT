@@ -9,7 +9,7 @@ import _staticData
 
 
 APIKEY = 'RGAPI-dba999e3-52ec-4601-a2da-a06f3ea12dfc' # Riot Games
-TOKEN = 'NDQ3MDU0NTM2MTI1NzEwMzM3.DeXN1w.DvyoXmCxil3ScCln-3ijf79JbNQ' # Linked to discord bot
+#TOKEN = 'NDQ3MDU0NTM2MTI1NzEwMzM3.DeXN1w.DvyoXmCxil3ScCln-3ijf79JbNQ' # Linked to discord bot
 BOT_PREFIX = ('?', '!') # Bot will respond to messages which start with ? and !
 REGION = 'euw1' 
 client = Bot(command_prefix = BOT_PREFIX)
@@ -314,4 +314,4 @@ async def profile():
 '''
 
 ##client.loop.create_task(list_servers()) # Lists the servers the bot is running on               
-client.run(TOKEN)
+client.run(os.getenv('TOKEN'))
