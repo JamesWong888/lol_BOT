@@ -5,7 +5,7 @@ import asyncio
 import requests
 import time
 import discord
-import os   z
+import os
 #import _staticData
 
 
