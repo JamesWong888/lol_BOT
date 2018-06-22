@@ -12,7 +12,7 @@ client = commands.Bot(command_prefix = '?')
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  ' running 24/7! test3'))
+    await client.change_presence(game=discord.Game(name =  ' running 24/7! test4'))
     print('Logged in as ' + client.user.name)
 
 
@@ -68,6 +68,7 @@ async def rank(ctx, summonerName):
     await client.say("Searching for rank")
     
     summonerInfo = requestRank(summonerName)
+    await client.say(summonerInfo)
     if (summonerInfo == None):
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
