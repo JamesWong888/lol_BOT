@@ -9,6 +9,8 @@ import requests
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
+REGION = 'euw1'
+APIKEY = 'RGAPI-cece9a7b-953a-4d6c-89b9-6e8609135e91'
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
