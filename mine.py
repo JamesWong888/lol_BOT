@@ -18,7 +18,7 @@ async def on_ready():
     print('Logged in as ' + client.user.name)
 
     
-@client.command(brief='Shows the free weekly champion rotation.')
+@client.command()
 async def rotation():
     URL = "https://" + REGION + ".api.riotgames.com/lol/platform/v3/champions?freeToPlay=true&api_key=" + APIKEY
     response = requests.get(URL)
