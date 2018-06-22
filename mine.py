@@ -6,6 +6,7 @@ import time
 import os
 import random
 
+
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
 
@@ -16,5 +17,5 @@ async def on_ready():
 
 
            
-#client.run(os.getenv('TOKEN'))
-client.run('NDQ3MDU0NTM2MTI1NzEwMzM3.Dg6XZg.3iPESUx8QLPLwNJQ61s33po6w4U')
+client.run(os.getenv('TOKEN'))
+
