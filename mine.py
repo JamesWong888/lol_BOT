@@ -45,11 +45,14 @@ async def testy():
 @client.command()
 async def requestSummonerData(summonerName): # Returns JSON summoner info with input: Username
     URL = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=RGAPI-cece9a7b-953a-4d6c-89b9-6e8609135e91"
+    await client.say("1")
     response = requests.get(URL) # Goes to URL and returns .json
+    await client.say("2")
     JSON = response.json()
+    await client.say("3")
 
     a = JSON['id']
-    
+    await client.say("4")
     await client.say(a)
 
 
