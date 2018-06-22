@@ -5,7 +5,7 @@ import asyncio
 import time
 import os
 import random
-import requests
+#import requests
 
 
 Client = discord.Client()
