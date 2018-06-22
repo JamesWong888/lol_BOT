@@ -25,7 +25,7 @@ async def rotation():
     responseJSON = response.json()    
     printQueue = []
     
-    await client.("Success!")
+    await client.say("Success!")
     
 
     
