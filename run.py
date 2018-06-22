@@ -5,20 +5,19 @@ import asyncio
 import requests
 import time
 import discord
-import _staticData
+import os   z
+#import _staticData
 
 
 APIKEY = 'RGAPI-dba999e3-52ec-4601-a2da-a06f3ea12dfc' # Riot Games
 BOT_PREFIX = ('?', '!') # Bot will respond to messages which start with ? and !
 REGION = 'euw1' 
-client = Bot(command_prefix = BOT_PREFIX)
-#client.remove_command('help') #Removes the ?help command
-#py_gg.init(APIKEY2)
+client = commands.Bot(command_prefix = BOT_PREFIX)
 
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
-    await client.change_presence(game = Game(name =  ' with MeHead. ?help'))
+    await client.change_presence(game=discord.Game(name =  ' with MeHead. ?help'))
     print('Logged in as ' + client.user.name)
 
 async def list_servers(): # Displays all current servers the bot is running on.
