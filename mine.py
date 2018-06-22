@@ -14,9 +14,21 @@ APIKEY = 'RGAPI-cece9a7b-953a-4d6c-89b9-6e8609135e91'
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  ' running 24/7! test5'))
+    await client.change_presence(game=discord.Game(name =  ' running 24/7! test6'))
     print('Logged in as ' + client.user.name)
 
+    
+@client.command(brief='Shows the free weekly champion rotation.')
+async def rotation():
+    URL = "https://" + REGION + ".api.riotgames.com/lol/platform/v3/champions?freeToPlay=true&api_key=" + APIKEY
+    response = requests.get(URL)
+    responseJSON = response.json()    
+    printQueue = []
+    
+    await client.("Success!")
+    
+
+    
 @client.command()
 async def testy():
     await client.say("hello")
