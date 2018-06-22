@@ -12,7 +12,7 @@ client = commands.Bot(command_prefix = '?')
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  ' running 24/7! test4'))
+    await client.change_presence(game=discord.Game(name =  ' running 24/7! test5'))
     print('Logged in as ' + client.user.name)
 
 
@@ -20,8 +20,41 @@ async def on_ready():
 async def testy():
     await client.say("hello")
  
+
+def requestSummonerData(REGION, summonerName, APIKEY): # Returns JSON summoner info with input: Username
+    URL = "https://" + REGION + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + APIKEY
+    response = requests.get(URL) # Goes to URL and returns .json
+    return response.json()
+
+def requestRankedData(REGION, ID, APIKEY): # Returns RANKED with input: ID
+    URL = "https://" + REGION + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + ID + "?api_key=" + APIKEY
+    response = requests.get(URL)
+    return response.json()
+
+def summonerNameToID(summonerName): # Username to ID
+    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    try:
+        return str(responseJSON['id'])
+    except KeyError:
+        return None
+
+def nameToAccID(summonerName): # Finds ACCOUNT ID not ID
+    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    try:
+        return str(responseJSON['accountId'])
+    except KeyError:
+        return None
+    
+def findRealName(summonerName):
+    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    try:
+        return str(responseJSON['name'])
+    except KeyError:
+        return None
+
 def requestRank(summonerName): # Returns a string/array with ONE user rank info in 'pretty format' with input: Username
     printQueue = {}
+    await client.say(summonerInfo)
     ID = summonerNameToID(summonerName)
     if (ID == None):
         return None
@@ -68,7 +101,6 @@ async def rank(ctx, summonerName):
     await client.say("Searching for rank")
     
     summonerInfo = requestRank(summonerName)
-    await client.say(summonerInfo)
     if (summonerInfo == None):
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
