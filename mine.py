@@ -5,7 +5,7 @@ import asyncio
 import time
 import os
 import random
-
+import requests
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
