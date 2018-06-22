@@ -28,6 +28,7 @@ async def rotation():
     response = requests.get(URL)
         
     await client.say("Success!3")
+    await client.say(response)
     responseJSON = response.json()
         
     await client.say("Success!4")
