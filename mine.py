@@ -118,5 +118,5 @@ async def rank(ctx, summonerName):
 
 
            
-#client.run(os.getenv('TOKEN'))
-client.run('NDQ3MDU0NTM2MTI1NzEwMzM3.Dg5vZg.cXaRGXCt4CgreyjnlZKLvQQa6Hk')
+client.run(os.getenv('TOKEN'))
+
