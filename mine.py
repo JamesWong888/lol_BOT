@@ -65,6 +65,8 @@ def requestRank(summonerName): # Returns a string/array with ONE user rank info 
 @client.command(brief = 'Shows the users solo queue rank.', pass_context = True)
 async def rank(ctx, summonerName):
     
+    await client.say("Searching for rank")
+    
     summonerInfo = requestRank(summonerName)
     if (summonerInfo == None):
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
