@@ -29,26 +29,8 @@ async def rotation():
     responseTEXT = response.text
    
     printQueue = []
-
+    await client.say("Success!2")
     
-    for counter in range(14):
-        champID = responseTEXT['champions'][counter]['id']
-        champName = _staticData.champDict['data'][str(champID)]['key']
-        champTitle = _staticData.champDict['data'][str(champID)]['title'] # Eg. Lux:   The Lady of Luminosity
-        printQueue.append('{:15}{:10}'.format(champName, champTitle))
-
-    await client.say("```This week's free rotation is: \n\n" +
-                     printQueue[0] + "\n" +
-                     printQueue[1] + "\n" +
-                     printQueue[2] + "\n" +
-                     printQueue[3] + "\n" +
-                     printQueue[4] + "\n" +
-                     printQueue[5] + "\n" +
-                     printQueue[6] + "\n" +
-                     printQueue[7] + "\n" +
-                     printQueue[8] + "\n" +
-                     printQueue[9] + "```")
-
 
     
 @client.command()
