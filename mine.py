@@ -14,7 +14,7 @@ APIKEY = 'RGAPI-cece9a7b-953a-4d6c-89b9-6e8609135e91'
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  ' running 24/7!a'))
+    await client.change_presence(game=discord.Game(name =  ' running 24/7!'))
     print('Logged in as ' + client.user.name)
 
     
@@ -28,8 +28,7 @@ async def rotation():
     response = requests.get(URL)
         
     await client.say("Success!3")
-    await client.say(response.text)
-    responseJSON = response.json()
+    responseTEXT = response.text
         
     await client.say("Success!4")
     printQueue = []
