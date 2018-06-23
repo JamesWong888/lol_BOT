@@ -88,7 +88,7 @@ champDict = {"data":{"89":{"id":89,"key":"Leona","name":"Leona","title":"the Rad
 
 @client.event # Displays the Eg. 'Playing League of Legends' message on discord.
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  ' running 24/7!'))
+    await client.change_presence(game=discord.Game(name =  ' now running 24/7!'))
     print('Logged in as ' + client.user.name)
 
     
