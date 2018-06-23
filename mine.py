@@ -107,9 +107,13 @@ async def rotation():
     
     for counter in range(14):
         champID = responseJSON['champions'][counter]['id']
+        await client.say(champID) 
         champName = champDict['data'][str(champID)]['key']
+        await client.say(champName) 
         champTitle = champDict['data'][str(champID)]['title'] # Eg. Lux:   The Lady of Luminosity
+        await client.say(champTitle)
         printQueue.append('{:15}{:10}'.format(champName, champTitle))
+        await client.say(printQueue)
 
     await client.say("```This week's free rotation is: \n\n" +
                      printQueue[0] + "\n" +
