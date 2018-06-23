@@ -23,18 +23,32 @@ async def rotation():
         
     await client.say("Success!1")
     URL = "https://euw1.api.riotgames.com/lol/platform/v3/champions?freeToPlay=true&api_key=RGAPI-cece9a7b-953a-4d6c-89b9-6e8609135e91"
-        
-    await client.say("Success!2")
+
     response = requests.get(URL)
-        
-    await client.say("Success!3")
+
     responseTEXT = response.text
-        
-    await client.say("Success!4")
+   
     printQueue = []
+
     
-    await client.say("Success!5")
-    
+    for counter in range(14):
+        champID = responseTEXT['champions'][counter]['id']
+        champName = _staticData.champDict['data'][str(champID)]['key']
+        champTitle = _staticData.champDict['data'][str(champID)]['title'] # Eg. Lux:   The Lady of Luminosity
+        printQueue.append('{:15}{:10}'.format(champName, champTitle))
+
+    await client.say("```This week's free rotation is: \n\n" +
+                     printQueue[0] + "\n" +
+                     printQueue[1] + "\n" +
+                     printQueue[2] + "\n" +
+                     printQueue[3] + "\n" +
+                     printQueue[4] + "\n" +
+                     printQueue[5] + "\n" +
+                     printQueue[6] + "\n" +
+                     printQueue[7] + "\n" +
+                     printQueue[8] + "\n" +
+                     printQueue[9] + "```")
+
 
     
 @client.command()
