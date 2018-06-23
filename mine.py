@@ -104,10 +104,10 @@ async def rotation():
    
     printQueue = []
     await client.say("Success!2")
-    await client.say(responseTXT)
+    await client.say(responseTEXT)
       
     for counter in range(14):
-        await client.say(responseTXT)
+        await client.say(responseTEXT)
         champID = responseTEXT['champions'][counter]['id']
         await client.say(champID) 
         champName = champDict['data'][str(champID)]['key']
