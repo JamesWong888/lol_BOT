@@ -8,7 +8,6 @@ import random
 import requests
 import ast
 import json
-import wasd.py
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
@@ -2582,8 +2581,7 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
-    await client.say(wasd.qqq)
-    await client.say(":o")
+
 def formatClock(seconds):
     mins = str(seconds // 60)
     seconds = str((seconds % 60)/100)
@@ -2683,7 +2681,7 @@ async def rank(ctx, summonerName):
 
 @client.command(brief='Shows the free weekly champion rotation.')
 async def rotation():
-    URL = "https://euw1.api.riotgames.com/lol/platform/v3/champions?freeToPlay=true&api_key=RGAPI-eeb01182-1053-437d-9f92-368d5bbebf51"
+    URL = "https://" + REGION + ".api.riotgames.com/lol/platform/v3/champions?freeToPlay=true&api_key=" + APIKEY
     response = requests.get(URL)
     responseJSON = json.loads(response.text)  
     printQueue = []
@@ -2707,8 +2705,6 @@ async def rotation():
                      printQueue[11] + "\n" +
                      printQueue[12] + "\n" +
                      printQueue[13] + "```")
-
-
 
 
     
