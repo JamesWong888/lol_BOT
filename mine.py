@@ -7,6 +7,7 @@ import os
 import random
 import requests
 import ast
+import json
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
@@ -23,23 +24,17 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
-    url = 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/MeHead?api_key=RGAPI-d4c4e2a5-be77-4a66-b1cf-687c4be9ad6e'
-    response = requests.get(url)
-    await client.say(response.text)
     
-    t = ast.literal_eval(response.text)
-    await client.say(t['id'])
-
 
 def requestSummonerData(REGION, summonerName, APIKEY): # Returns JSON summoner info with input: Username
     URL = "https://" + REGION + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + APIKEY
     response = requests.get(URL) # Goes to URL and returns .json
-    return ast.literal_eval(response.text)
+    return json.loads(response)
 
 def requestRankedData(REGION, ID, APIKEY): # Returns RANKED with input: ID
     URL = "https://" + REGION + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + ID + "?api_key=" + APIKEY
     response = requests.get(URL)
-    return ast.literal_eval(response.text)
+    return json.loads(response)
 
 def summonerNameToID(summonerName): # Username to ID
     responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
