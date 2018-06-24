@@ -34,12 +34,12 @@ async def testy():
 def requestSummonerData(REGION, summonerName, APIKEY): # Returns JSON summoner info with input: Username
     URL = "https://" + REGION + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + APIKEY
     response = requests.get(URL) # Goes to URL and returns .json
-    return response.text
+    return ast.literal_eval(response.text)
 
 def requestRankedData(REGION, ID, APIKEY): # Returns RANKED with input: ID
     URL = "https://" + REGION + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + ID + "?api_key=" + APIKEY
     response = requests.get(URL)
-    return response.text
+    return ast.literal_eval(response.text)
 
 def summonerNameToID(summonerName): # Username to ID
     responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
