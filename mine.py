@@ -42,6 +42,7 @@ def requestRankedData(REGION, ID, APIKEY): # Returns RANKED with input: ID
     return ast.literal_eval(response.text)
 
 def summonerNameToID(summonerName): # Username to ID
+    await client.say("1")
     responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
     try:
         return str(responseJSON['id'])
