@@ -2690,10 +2690,6 @@ async def rotation():
         champName = champDict['data'][str(champID)]['key']
         champTitle = champDict['data'][str(champID)]['title'] # Eg. Lux:   The Lady of Luminosity
         printQueue.append('{:15}{:10}'.format(champName, champTitle))
-        await client.say("5")
-    await client.say("?")
-    await client.say(printQueue[0])
-    await client.say(printQueue[9])
     await client.say("```This week's free rotation is: \n\n" +
                      printQueue[0] + "\n" +
                      printQueue[1] + "\n" +
