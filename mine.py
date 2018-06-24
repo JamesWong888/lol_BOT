@@ -21,7 +21,10 @@ async def on_ready():
     
 @client.command()
 async def testy():
-    await client.say("hello")
+    await client.say("hello")  
+    url = 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/MeHead?api_key=RGAPI-d4c4e2a5-be77-4a66-b1cf-687c4be9ad6e'
+    response = requests.get(url)
+    await client.say(response.json())
 
 
 def requestSummonerData(REGION, summonerName, APIKEY): # Returns JSON summoner info with input: Username
