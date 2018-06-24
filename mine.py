@@ -14,6 +14,11 @@ client = commands.Bot(command_prefix = '?')
 REGION = os.getenv('REGION')
 RIOTKEY = os.getenv('RIOTKEY')
 
+Client = discord.Client()
+client = commands.Bot(command_prefix = '?')
+REGION = 'euw1'
+RIOTKEY = 'RGAPI-eeb01182-1053-437d-9f92-368d5bbebf51'
+
 
 @client.event
 async def on_ready():
@@ -24,46 +29,34 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
-    
 
-def requestSummonerData(REGION, summonerName, APIKEY): # Returns JSON summoner info with input: Username
-    URL = "https://" + REGION + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + APIKEY
+def requestSummonerData(REGION, summonerName, RIOTKEY): # Returns JSON summoner info with input: Username
+    URL = "https://" + REGION + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + RIOTKEY
     response = requests.get(URL) # Goes to URL and returns .json
-    return json.loads(response)
+    return json.loads(response.text)
 
-def requestRankedData(REGION, ID, APIKEY): # Returns RANKED with input: ID
-    URL = "https://" + REGION + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + ID + "?api_key=" + APIKEY
+def requestRankedData(REGION, ID, RIOTKEY): # Returns RANKED with input: ID
+    URL = "https://" + REGION + ".api.riotgames.com/lol/league/v3/positions/by-summoner/" + ID + "?api_key=" + RIOTKEY
     response = requests.get(URL)
-    return json.loads(response)
-
+    return json.loads(response.text)
+    
 def summonerNameToID(summonerName): # Username to ID
-    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    responseJSON = requestSummonerData(REGION, summonerName, RIOTKEY)
+
     try:
         return str(responseJSON['id'])
     except KeyError:
         return None
 
-def nameToAccID(summonerName): # Finds ACCOUNT ID not ID
-    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
-    try:
-        return str(responseJSON['accountId'])
-    except KeyError:
-        return None
     
-def findRealName(summonerName):
-    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
-    try:
-        return str(responseJSON['name'])
-    except KeyError:
-        return None
 
 def requestRank(summonerName): # Returns a string/array with ONE user rank info in 'pretty format' with input: Username
     printQueue = {}
     ID = summonerNameToID(summonerName)
     if (ID == None):
         return None
-    responseJSON2 = requestRankedData(REGION, ID, APIKEY)
-
+    responseJSON2 = requestRankedData(REGION, ID, RIOTKEY)
+    
     num = 3
     for i in range(1):
         try:
@@ -100,7 +93,7 @@ def requestRank(summonerName): # Returns a string/array with ONE user rank info 
 
 @client.command(brief = 'Shows the users solo queue rank.', pass_context = True)
 async def rank(ctx, summonerName):
-    
+
     summonerInfo = requestRank(summonerName)
     if (summonerInfo == None):
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
@@ -110,6 +103,9 @@ async def rank(ctx, summonerName):
                       summonerInfo['rank'] + "  " +
                       summonerInfo['winRate'] + "  " +
                       summonerInfo['gamesPlayed'] + "```")
+
+
+
 
 
 
