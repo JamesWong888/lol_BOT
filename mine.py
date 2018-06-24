@@ -30,6 +30,22 @@ async def on_ready():
 async def testy():
     await client.say("hello")  
 
+def formatClock(seconds):
+    mins = str(seconds // 60)
+    seconds = str((seconds % 60)/100)
+    try:
+        seconds = seconds[2] + seconds[3]
+    except IndexError:
+        seconds = seconds[2] +  '0'
+    return (mins + ":" + seconds)
+    
+def findRealName(summonerName):
+    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    try:
+        return str(responseJSON['name'])
+    except KeyError:
+        return None    
+    
 def requestSummonerData(REGION, summonerName, RIOTKEY): # Returns JSON summoner info with input: Username
     URL = "https://" + REGION + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + RIOTKEY
     response = requests.get(URL) # Goes to URL and returns .json
@@ -47,7 +63,13 @@ def summonerNameToID(summonerName): # Username to ID
         return str(responseJSON['id'])
     except KeyError:
         return None
-
+    
+def nameToAccID(summonerName): # Finds ACCOUNT ID not ID
+    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    try:
+        return str(responseJSON['accountId'])
+    except KeyError:
+        return None
     
 
 def requestRank(summonerName): # Returns a string/array with ONE user rank info in 'pretty format' with input: Username
