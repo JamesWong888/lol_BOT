@@ -14,11 +14,6 @@ client = commands.Bot(command_prefix = '?')
 REGION = os.getenv('REGION')
 RIOTKEY = os.getenv('RIOTKEY')
 
-Client = discord.Client()
-client = commands.Bot(command_prefix = '?')
-REGION = 'euw1'
-RIOTKEY = 'RGAPI-eeb01182-1053-437d-9f92-368d5bbebf51'
-
 champDict = {"data":{"89":{"id":89,"key":"Leona","name":"Leona","title":"the Radiant Dawn"},"110":{"id":110,"key":"Varus","name":"Varus","title":"the Arrow of Retribution"},
              "111":{"id":111,"key":"Nautilus","name":"Nautilus","title":"the Titan of the Depths"},"112":{"id":112,"key":"Viktor","name":"Viktor","title":"the Machine Herald"},
              "113":{"id":113,"key":"Sejuani","name":"Sejuani","title":"Fury of the North"},"114":{"id":114,"key":"Fiora","name":"Fiora","title":"the Grand Duelist"},
