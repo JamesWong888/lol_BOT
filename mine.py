@@ -6,6 +6,7 @@ import time
 import os
 import random
 import requests
+import ast
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
