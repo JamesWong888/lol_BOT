@@ -1900,6 +1900,7 @@ async def rank(ctx, summonerName):
 
 @client.command(brief='Shows the free weekly champion rotation.')
 async def rotation():
+    await client.say(":o")
     URL = "https://" + REGION + ".api.riotgames.com/lol/platform/v3/champions?freeToPlay=true&api_key=" + APIKEY
     response = requests.get(URL)
     responseJSON = json.loads(response.text)   
