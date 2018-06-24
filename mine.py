@@ -2704,7 +2704,11 @@ async def rotation():
                      printQueue[6] + "\n" +
                      printQueue[7] + "\n" +
                      printQueue[8] + "\n" +
-                     printQueue[9] + "```")
+                     printQueue[9] + "\n" +
+                     printQueue[10] + "\n" +
+                     printQueue[11] + "\n" +
+                     printQueue[12] + "\n" +
+                     printQueue[13] + "```")
 
 
 
