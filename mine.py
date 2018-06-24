@@ -8,6 +8,7 @@ import random
 import requests
 import ast
 import json
+import wasd.py
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
@@ -2581,7 +2582,8 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
-
+    await client.say(wasd.qqq)
+    await client.say(":o")
 def formatClock(seconds):
     mins = str(seconds // 60)
     seconds = str((seconds % 60)/100)
