@@ -166,10 +166,10 @@ async def live(ctx, summonerName):
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
     
-    await client.say("2")
+    await client.say(ID)
     URL = "https://" + REGION + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + ID + "?api_key=" + RIOTKEY
-    response = requests.get(URL)
-    responseJSON = response.json()
+    responseJSON = requests.get(URL)
+
     await client.say("3")
     mapID = -1 # There is no map with -1
     try:
