@@ -167,8 +167,9 @@ async def live(ctx, summonerName):
     
     await client.say(ID)
     URL = "https://" + REGION + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + ID + "?api_key=" + RIOTKEY
-    responseJSON = requests.get(URL)
-
+    response = requests.get(URL)
+    responseJSON = json.loads(response.text)
+    
     await client.say("1")
     mapID = -1 # There is no map with -1
     await client.say(responseJSON['gameQueueConfigId'])
