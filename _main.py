@@ -180,10 +180,8 @@ async def live(ctx, summonerName):
     
     
     mapName = _staticData.mapTypeDict[mapID]
-    await client.say(mapName)
     clock = formatClock(responseJSON['gameLength'])
     
-    await client.say("1")
     
     maxChampLen = 0
     maxNameLen = 0
@@ -201,8 +199,6 @@ async def live(ctx, summonerName):
             maxNameLen = len(summonerInfo['summonerName'])
         if len(summonerInfo['rank']) > maxRankLen:
               maxRankLen = len(summonerInfo['rank'])
-
-        await client.say(counter)
     
     for counter in range(10):
         summonerName = responseJSON['participants'][counter]['summonerName']  
