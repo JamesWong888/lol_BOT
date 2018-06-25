@@ -164,8 +164,7 @@ async def live(ctx, summonerName):
     except KeyError:
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
-    
-    await client.say(ID)
+
     URL = "https://" + REGION + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + ID + "?api_key=" + RIOTKEY
     response = requests.get(URL)
     responseJSON = json.loads(response.text)
@@ -210,7 +209,6 @@ async def live(ctx, summonerName):
                           .format(champName,  summonerInfo['summonerName'], summonerInfo['rank'], summonerInfo['winRate'], summonerInfo['gamesPlayed'],
                                   widthChamp = maxChampLen+1, widthName = maxNameLen+1, widthRank = maxRankLen+1, widthWin = 5, widthGames = 5))
 
-    await client.say("9")
     await client.say("```" + mapName + " | " + clock +
                      "\n\n----------- TEAM 1 ------------------------------\n" +
                      printQueue[0] + "\n" +
