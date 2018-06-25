@@ -135,8 +135,8 @@ async def rotation():
     printQueue = []
     for counter in range(14):
         champID = responseJSON['champions'][counter]['id']
-        champName = champDict['data'][str(champID)]['key']
-        champTitle = champDict['data'][str(champID)]['title'] # Eg. Lux:   The Lady of Luminosity
+        champName = _staticData.champDict['data'][str(champID)]['key']
+        champTitle = _staticData.champDict['data'][str(champID)]['title'] # Eg. Lux:   The Lady of Luminosity
         printQueue.append('{:15}{:10}'.format(champName, champTitle))
     await client.say("```This week's free rotation is: \n\n" +
                      printQueue[0] + "\n" +
