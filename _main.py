@@ -16,7 +16,6 @@ client = commands.Bot(command_prefix = '?')
 REGION = os.getenv('REGION')
 RIOTKEY = os.getenv('RIOTKEY')
 
-discord.rest_is_raw = True
 
 @client.event
 async def on_ready():
