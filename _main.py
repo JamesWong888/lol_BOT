@@ -214,7 +214,6 @@ async def live(ctx, summonerName):
         champName = _staticData.champDict["data"][str(champID)]['key']
        
         summonerInfo = requestRank(summonerName)
-        #await client.say(summonerName)
         printQueue.append('{:{widthChamp}} {:{widthName}} {:{widthRank}} {:{widthWin}}{:{widthGames}}'
                           .format(champName,  summonerInfo['summonerName'], summonerInfo['rank'], summonerInfo['winRate'], summonerInfo['gamesPlayed'],
                                   widthChamp = maxChampLen+1, widthName = maxNameLen+1, widthRank = maxRankLen+1, widthWin = 5, widthGames = 5))
