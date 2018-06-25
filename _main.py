@@ -37,7 +37,7 @@ def formatClock(seconds):
     return (mins + ":" + seconds)
     
 def findRealName(summonerName):
-    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    responseJSON  = requestSummonerData(REGION, summonerName, RIOTKEY)
     try:
         return str(responseJSON['name'])
     except KeyError:
@@ -62,7 +62,7 @@ def summonerNameToID(summonerName): # Username to ID
         return None
     
 def nameToAccID(summonerName): # Finds ACCOUNT ID not ID
-    responseJSON  = requestSummonerData(REGION, summonerName, APIKEY)
+    responseJSON  = requestSummonerData(REGION, summonerName, RIOTKEY)
     try:
         return str(responseJSON['accountId'])
     except KeyError:
@@ -161,8 +161,7 @@ async def history(ctx, summonerName):
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
     name = findRealName(summonerName)
-    URL = 'https://' + REGION + '.api.riotgames.com/lol/match/v3/matchlists/by-account/' + str(accID) + '?beginIndex=0&endIndex=5&api_key=' + APIKEY
-    #URL = 'https://euw1.api.riotgames.com/lol/match/v3/matchlists/by-account/220521642?beginIndex=0&endIndex=5&api_key=RGAPI-7f302503-2a1a-44b8-be02-2b853337fcc0'
+    URL = 'https://' + REGION + '.api.riotgames.com/lol/match/v3/matchlists/by-account/' + str(accID) + '?beginIndex=0&endIndex=5&api_key=' + RIOTKEY
     response = requests.get(URL)
     responseJSON = response.json()
     
