@@ -9,6 +9,9 @@ import requests
 import ast
 import json
 
+from staticData import a
+from staticData import b
+
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
 REGION = os.getenv('REGION')
@@ -2581,6 +2584,9 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
+    await client.say(staticData.b)
+    c = staticData.a + 6
+    await client.say(str(c))
 
 def formatClock(seconds):
     mins = str(seconds // 60)
