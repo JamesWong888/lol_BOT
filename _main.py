@@ -28,9 +28,14 @@ async def testy():
     await client.say("hello")  
 
 @client.command()
-async def testyy(string):
-    a =  string.replace(" ", "")
-    await client.say(a)
+async def testyy():
+    embed=discord.Embed(title="Level 95", description="Europe West")
+    embed.set_author(name="MeHead",, icon_url="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/23.png")
+    embed.set_thumbnail(url="http://opgg-static.akamaized.net/images/medals/platinum_2.png")
+    embed.add_field(name=Platinum 2, value=48% 231G, inline=True)
+    embed.set_footer(text="Mastery: 381,032", icon_url="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Anivia.png")
+    await self.bot.say(embed=embed)
+
 
 def formatClock(seconds):
     mins = str(seconds // 60)
