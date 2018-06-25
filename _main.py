@@ -170,19 +170,21 @@ async def live(ctx, summonerName):
     response = requests.get(URL)
     responseJSON = json.loads(response.text)
     
-    await client.say("1")
+
     mapID = -1 # There is no map with -1
-    await client.say(responseJSON['gameQueueConfigId'])
     try:
         mapID = responseJSON['gameQueueConfigId']
     except Exception:
         await client.say(responseJSON2['name'] + " is not in a game") ## current
         return
     
+    
     mapName = _staticData.mapTypeDict[mapID]
     await client.say(mapName)
     clock = formatClock(responseJSON['gameLength'])
-
+    
+    await client.say("1")
+    
     maxChampLen = 0
     maxNameLen = 0
     maxRankLen = 0
@@ -212,7 +214,7 @@ async def live(ctx, summonerName):
                           .format(champName,  summonerInfo['summonerName'], summonerInfo['rank'], summonerInfo['winRate'], summonerInfo['gamesPlayed'],
                                   widthChamp = maxChampLen+1, widthName = maxNameLen+1, widthRank = maxRankLen+1, widthWin = 5, widthGames = 5))
 
-
+    await client.say("9")
     await client.say("```" + mapName + " | " + clock +
                      "\n\n----------- TEAM 1 ------------------------------\n" +
                      printQueue[0] + "\n" +
