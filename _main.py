@@ -152,81 +152,75 @@ async def rotation():
                      printQueue[13] + "```")
 
  
-@client.command(brief='Shows the users last 5 matches.', pass_context=True)
-async def history(ctx, summonerName):
+
+@client.command(name = 'live', brief='Shows information about a live game.', pass_context = True)
+async def activeGame(ctx, summonerName):
+
     printQueue = []
-    
-    accID = nameToAccID(summonerName)
-    if (accID == None):
+    mapName = ""
+    responseJSON2 = requestSummonerData(REGION, summonerName, RIOTKEY)
+    try:
+        ID = str(responseJSON2['id'])
+    except KeyError:
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
-    name = findRealName(summonerName)
-    URL = 'https://' + REGION + '.api.riotgames.com/lol/match/v3/matchlists/by-account/' + str(accID) + '?beginIndex=0&endIndex=5&api_key=' + RIOTKEY
+    
+    URL = "https://" + REGION + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + ID + "?api_key=" + RIOTKEY
     response = requests.get(URL)
     responseJSON = response.json()
-    
-    
-    for counter in range(5):
-        gameID = responseJSON['matches'][counter]['gameId']
-        champID = responseJSON['matches'][counter]['champion']
 
-        participantID = -1
-        team = -1
-        
-        URL2 = 'https://' + REGION + '.api.riotgames.com/lol/match/v3/matches/' + str(gameID) + '?api_key=' + APIKEY
-        response2 = requests.get(URL2)
-        responseJSON2 = response2.json()
-        
-        
-        time = responseJSON2['gameDuration'] # INT
-        queueID = responseJSON2['queueId'] # INT
-        mapName = _staticData.mapTypeDict[queueID] ## HOLDS THE QUEUE NAME EG. SUMMONERS RIFT 5V5 RANKED
-        
-        for participantCounter in range(10):
-            if (responseJSON2['participantIdentities'][participantCounter]['player']['summonerName'] == name):  
-                participantID = responseJSON2['participantIdentities'][participantCounter]['participantId']
+    mapID = -1 # There is no map with -1
+    try:
+        mapID = responseJSON['gameQueueConfigId']
+    except Exception:
+        await client.say(responseJSON2['name'] + " is not in a game") ## current
+        return
+    mapName = _staticData.mapTypeDict[mapID]
+    clock = formatClock(responseJSON['gameLength'])
 
-        if participantID < 6:
-            team = 0
-        elif participantID > 5:
-            team = 1
-
-        win = responseJSON2['teams'][team]['win']
-        if win == 'Win':
-            win = 'VICTORY'
-        elif win == 'Fail':
-            win = 'DEFEAT'
+    maxChampLen = 0
+    maxNameLen = 0
+    maxRankLen = 0
         
-        
-        kills = str(responseJSON2['participants'][participantID-1]['stats']['kills'])
-        deaths = str(responseJSON2['participants'][participantID-1]['stats']['deaths'])
-        assists = str(responseJSON2['participants'][participantID-1]['stats']['assists'])
-        kda = kills + "/" + deaths + "/" + assists
-
-        
-        
-        goldEarned = str(responseJSON2['participants'][participantID-1]['stats']['goldEarned'])
+    for counter in range(10):
+        summonerName = responseJSON['participants'][counter]['summonerName']  
+        champID = responseJSON['participants'][counter]['championId']
         champName = _staticData.champDict["data"][str(champID)]['key']
-        totalTime = formatClock(responseJSON2['gameDuration'])
-        totalMinionsKilled = str(responseJSON2['participants'][participantID-1]['stats']['totalMinionsKilled'])
+       
+        summonerInfo = requestRank(summonerName)
+        if len(champName) > maxChampLen:
+              maxChampLen = len(champName)
+        if len(summonerInfo['summonerName']) > maxNameLen:
+            maxNameLen = len(summonerInfo['summonerName'])
+        if len(summonerInfo['rank']) > maxRankLen:
+              maxRankLen = len(summonerInfo['rank'])
 
 
-        printQueue.append('{:{widthChamp}} {:{widthKDA}} {:{widthGold}} {:{widthCS}}{:{widthTime}}{:{widthWin}}'
-                          .format(champName,  kda, goldEarned, totalMinionsKilled, totalTime, win,
-                                  widthChamp = 13, widthKDA = 9, widthGold = 6, widthCS = 5, widthTime = 8, widthWin = 5))
+    for counter in range(10):
+        summonerName = responseJSON['participants'][counter]['summonerName']  
+        champID = responseJSON['participants'][counter]['championId']
+        champName = _staticData.champDict["data"][str(champID)]['key']
+       
+        summonerInfo = requestRank(summonerName)
+        #await client.say(summonerName)
+        printQueue.append('{:{widthChamp}} {:{widthName}} {:{widthRank}} {:{widthWin}}{:{widthGames}}'
+                          .format(champName,  summonerInfo['summonerName'], summonerInfo['rank'], summonerInfo['winRate'], summonerInfo['gamesPlayed'],
+                                  widthChamp = maxChampLen+1, widthName = maxNameLen+1, widthRank = maxRankLen+1, widthWin = 5, widthGames = 5))
 
 
-    printQueue.append('{:{widthChamp}} {:{widthKDA}} {:{widthGold}} {:{widthCS}}{:{widthTime}}{:{widthWin}}'
-                          .format('Champion',  'Score', 'Gold', 'CS', 'Time', 'Result',
-                                  widthChamp = 13, widthKDA = 9, widthGold = 6, widthCS = 5, widthTime = 8, widthWin = 5))
-        
-    await client.say("```Match History for: " + name + "\n\n" +
-                     printQueue[5] + "\n" +
+    await client.say("```" + mapName + " | " + clock +
+                     "\n\n----------- TEAM 1 ------------------------------\n" +
                      printQueue[0] + "\n" +
                      printQueue[1] + "\n" +
                      printQueue[2] + "\n" +
                      printQueue[3] + "\n" +
-                     printQueue[4] + "```")
+                     printQueue[4] +
+                     "\n\n----------- TEAM 2 ------------------------------\n" +
+                     printQueue[5] + "\n" +
+                     printQueue[6] + "\n" +
+                     printQueue[7] + "\n" +
+                     printQueue[8] + "\n" +
+                     printQueue[9] + "```")
 
 
     
