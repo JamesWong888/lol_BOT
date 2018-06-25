@@ -224,6 +224,84 @@ async def live(ctx, summonerName):
                      printQueue[9] + "```")
 
 
+@client.command(brief='Shows the users last 5 matches.', pass_context=True)
+async def history(ctx, summonerName):
+    printQueue = []
+    
+    accID = nameToAccID(summonerName)
+    if (accID == None):
+        await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
+        return
+    
+    name = findRealName(summonerName)
+    URL = 'https://' + REGION + '.api.riotgames.com/lol/match/v3/matchlists/by-account/' + str(accID) + '?beginIndex=0&endIndex=5&api_key=' + RIOTKEY
+    response = requests.get(URL)
+    responseJSON = json.loads(response.text)
+    
+    for counter in range(5):
+        gameID = responseJSON['matches'][counter]['gameId']
+        champID = responseJSON['matches'][counter]['champion']
+
+        participantID = -1
+        team = -1
+        
+        URL2 = 'https://' + REGION + '.api.riotgames.com/lol/match/v3/matches/' + str(gameID) + '?api_key=' + RIOTKEY
+        response2 = requests.get(URL2)
+        responseJSON2 = json.loads(response2.text)
+        
+        
+        time = responseJSON2['gameDuration'] # INT
+        queueID = responseJSON2['queueId'] # INT
+        mapName = _staticData.mapTypeDict[queueID] ## HOLDS THE QUEUE NAME EG. SUMMONERS RIFT 5V5 RANKED
+        
+        for participantCounter in range(10):
+            if (responseJSON2['participantIdentities'][participantCounter]['player']['summonerName'] == name):  
+                participantID = responseJSON2['participantIdentities'][participantCounter]['participantId']
+
+        if participantID < 6:
+            team = 0
+        elif participantID > 5:
+            team = 1
+
+        win = responseJSON2['teams'][team]['win']
+        if win == 'Win':
+            win = 'VICTORY'
+        elif win == 'Fail':
+            win = 'DEFEAT'
+        
+        
+        kills = str(responseJSON2['participants'][participantID-1]['stats']['kills'])
+        deaths = str(responseJSON2['participants'][participantID-1]['stats']['deaths'])
+        assists = str(responseJSON2['participants'][participantID-1]['stats']['assists'])
+        kda = kills + "/" + deaths + "/" + assists
+
+        
+        
+        goldEarned = str(responseJSON2['participants'][participantID-1]['stats']['goldEarned'])
+        champName = _staticData.champDict["data"][str(champID)]['key']
+        totalTime = formatClock(responseJSON2['gameDuration'])
+        totalMinionsKilled = str(responseJSON2['participants'][participantID-1]['stats']['totalMinionsKilled'])
+
+
+        printQueue.append('{:{widthChamp}} {:{widthKDA}} {:{widthGold}} {:{widthCS}}{:{widthTime}}{:{widthWin}}'
+                          .format(champName,  kda, goldEarned, totalMinionsKilled, totalTime, win,
+                                  widthChamp = 13, widthKDA = 9, widthGold = 6, widthCS = 5, widthTime = 8, widthWin = 5))
+
+
+    printQueue.append('{:{widthChamp}} {:{widthKDA}} {:{widthGold}} {:{widthCS}}{:{widthTime}}{:{widthWin}}'
+                          .format('Champion',  'Score', 'Gold', 'CS', 'Time', 'Result',
+                                  widthChamp = 13, widthKDA = 9, widthGold = 6, widthCS = 5, widthTime = 8, widthWin = 5))
+        
+    await client.say("```Match History for: " + name + "\n\n" +
+                     printQueue[5] + "\n" +
+                     printQueue[0] + "\n" +
+                     printQueue[1] + "\n" +
+                     printQueue[2] + "\n" +
+                     printQueue[3] + "\n" +
+                     printQueue[4] + "```")
+
+
+
     
 client.run(os.getenv('BOTTOKEN'))
 
