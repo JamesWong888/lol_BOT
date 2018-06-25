@@ -107,7 +107,7 @@ def requestRank(summonerName): # Returns a string/array with ONE user rank info 
                 printQueue['rank'] = rank
                 printQueue['winRate'] = winRate
                 printQueue['gamesPlayed'] = gamesPlayed
-
+    
             elif (num == 3):
                 printQueue['summonerName'] = str(summonerName)
                 printQueue['rank'] = 'Unranked'
