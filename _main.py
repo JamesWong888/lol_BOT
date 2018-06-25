@@ -27,6 +27,11 @@ async def on_ready():
 async def testy():
     await client.say("hello")  
 
+@client.command()
+async def testyy(string):
+    a =  string.replace(" ", "")
+    await client.say(a)
+
 def formatClock(seconds):
     mins = str(seconds // 60)
     seconds = str((seconds % 60)/100)
