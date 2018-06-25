@@ -9,7 +9,7 @@ import requests
 import ast
 import json
 
-import staticData 
+import _staticData 
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
