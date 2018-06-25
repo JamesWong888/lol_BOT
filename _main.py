@@ -159,7 +159,7 @@ async def rotation():
  
 
 @client.command(brief='Shows information about a live game.', pass_context = True)
-async def live(ctx, summonerName):
+async def live(ctx, summonerName, REGION):
 
     printQueue = []
     mapName = ""
