@@ -26,9 +26,6 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
-    await client.say(staticData.b)
-    c = staticData.a + 6
-    await client.say(str(c))
 
 def formatClock(seconds):
     mins = str(seconds // 60)
