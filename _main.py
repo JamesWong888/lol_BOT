@@ -202,7 +202,8 @@ async def live(ctx, summonerName):
         if len(summonerInfo['rank']) > maxRankLen:
               maxRankLen = len(summonerInfo['rank'])
 
-
+    await client.say(counter)
+    
     for counter in range(10):
         summonerName = responseJSON['participants'][counter]['summonerName']  
         champID = responseJSON['participants'][counter]['championId']
