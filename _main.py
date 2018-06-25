@@ -153,22 +153,24 @@ async def rotation():
 
  
 
-@client.command(name = 'live', brief='Shows information about a live game.', pass_context = True)
-async def activeGame(ctx, summonerName):
+@client.command(brief='Shows information about a live game.', pass_context = True)
+async def live(ctx, summonerName):
 
     printQueue = []
     mapName = ""
     responseJSON2 = requestSummonerData(REGION, summonerName, RIOTKEY)
+    await client.say("1")
     try:
         ID = str(responseJSON2['id'])
     except KeyError:
         await client.say(ctx.message.author.mention + ", '" + summonerName + "' not found. Please check spelling")
         return
     
+    await client.say("2")
     URL = "https://" + REGION + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + ID + "?api_key=" + RIOTKEY
     response = requests.get(URL)
     responseJSON = response.json()
-
+    await client.say("3")
     mapID = -1 # There is no map with -1
     try:
         mapID = responseJSON['gameQueueConfigId']
