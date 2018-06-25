@@ -159,7 +159,6 @@ async def live(ctx, summonerName):
     printQueue = []
     mapName = ""
     responseJSON2 = requestSummonerData(REGION, summonerName, RIOTKEY)
-    await client.say("1")
     try:
         ID = str(responseJSON2['id'])
     except KeyError:
@@ -170,14 +169,17 @@ async def live(ctx, summonerName):
     URL = "https://" + REGION + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + ID + "?api_key=" + RIOTKEY
     responseJSON = requests.get(URL)
 
-    await client.say("3")
+    await client.say("1")
     mapID = -1 # There is no map with -1
+    await client.say(responseJSON['gameQueueConfigId'])
     try:
         mapID = responseJSON['gameQueueConfigId']
     except Exception:
         await client.say(responseJSON2['name'] + " is not in a game") ## current
         return
+    
     mapName = _staticData.mapTypeDict[mapID]
+    await client.say(mapName)
     clock = formatClock(responseJSON['gameLength'])
 
     maxChampLen = 0
