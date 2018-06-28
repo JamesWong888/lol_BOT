@@ -11,11 +11,16 @@ import json
 
 import _staticData 
 
+import fornite_python
+from fortnite_python import Fortnite
+from fortnite_python.domain import Mode
+
+
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
 REGION = os.getenv('REGION')
 RIOTKEY = os.getenv('RIOTKEY')
-
+FNITEKEY = os.getenv('FNITEKEY')
 
 @client.event
 async def on_ready():
@@ -26,7 +31,8 @@ async def on_ready():
 @client.command()
 async def testy():
     await client.say("hello")  
-
+    await client.say(FNITEKEY)
+    
 @client.command()
 async def testyy():
     embed=discord.Embed(title="Level 95", description="Europe West")
