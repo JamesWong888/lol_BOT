@@ -10,7 +10,6 @@ import ast
 import json
 
 import _staticData 
-import fortnite_python
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
