@@ -18,7 +18,7 @@ RIOTKEY = os.getenv('RIOTKEY')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  ' all hail MeHead!'))
+    await client.change_presence(game=discord.Game(name =  'League of Legends'))
     print('Logged in as ' + client.user.name)
 
     
