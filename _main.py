@@ -11,6 +11,12 @@ import json
 
 import _staticData 
 
+from fortnite_python import Fortnite
+from fortnite_python.domain import Mode
+from fortnite_python.domain import Platform
+
+
+
 Client = discord.Client()
 client = commands.Bot(command_prefix = '?')
 REGION = os.getenv('REGION')
@@ -26,6 +32,7 @@ async def on_ready():
 async def testy():
     await client.say("hello")  
     await client.say(FNITEKEY)
+    await client.say("test1")
     
 @client.command()
 async def testyy():
