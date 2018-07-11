@@ -24,7 +24,9 @@ async def on_ready():
     
 @client.command()
 async def presence(game):
+    await client.say("hello")      
     await client.change_presence(game=discord.Game(name =  game))  
+    await client.say("hello1")  
     
 @client.command()
 async def testy():
