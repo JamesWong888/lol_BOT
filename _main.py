@@ -30,8 +30,6 @@ async def presence(game):
 @client.command()
 async def testy():
     await client.say("hello")  
-    await client.say(FNITEKEY)
-    await client.say("test1")
     
 @client.command()
 async def testyy():
