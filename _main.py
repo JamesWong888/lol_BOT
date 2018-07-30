@@ -19,7 +19,7 @@ RIOTKEY = os.getenv('RIOTKEY')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name =  'League of Legends'))
+    await client.change_presence(game=discord.Game(name =  ' with Stanky6'))
 
     
 @client.command()
